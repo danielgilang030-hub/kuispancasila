@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Belajar Pancasila</title>
+    <title>Portal & Kuis Pancasila</title>
     <style>
         /* Desain Dasar & Layout */
         body {
@@ -33,7 +33,7 @@
 
         /* SIDEBAR (SISI KIRI) */
         .sidebar {
-            width: 320px;
+            width: 280px;
             background-color: white;
             padding: 20px;
             box-shadow: 2px 0 5px rgba(0,0,0,0.05);
@@ -43,7 +43,6 @@
             border-right: 1px solid #e0e0e0;
         }
 
-        /* Menu Navigasi di Sidebar */
         .menu-title {
             font-size: 14px;
             font-weight: bold;
@@ -72,7 +71,7 @@
         .menu-item:hover {
             background-color: #feebee;
             color: #c62828;
-            border-color: #italic #c62828;
+            border-color: #c62828;
         }
         .menu-item.active {
             background-color: #c62828;
@@ -80,34 +79,35 @@
             border-color: #c62828;
         }
 
-        /* Iframe Kuis di Sidebar */
-        .quiz-container {
-            border-top: 2px dashed #e0e0e0;
-            padding-top: 15px;
-        }
-        iframe {
-            width: 100%;
-            height: 480px;
-            border: none;
-            border-radius: 8px;
-            box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
-        }
-
         /* KONTEN UTAMA (SISI KANAN) */
         .main-content {
             flex: 1;
             padding: 30px;
             background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
         }
         .card {
             background-color: white;
             padding: 30px;
             border-radius: 8px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            min-height: 400px;
+            width: 100%;
+            max-width: 800px;
+            min-height: 500px;
+            box-sizing: border-box;
         }
 
-        /* Mengatur tampilan halaman konten (Sembunyikan yang tidak aktif) */
+        /* Mengatur tampilan iframe Kuis agar lega seperti semula */
+        iframe {
+            width: 100%;
+            height: 550px;
+            border: none;
+            border-radius: 8px;
+        }
+
+        /* Mengatur perpindahan halaman konten */
         .content-section {
             display: none;
         }
@@ -121,7 +121,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Responsif untuk HP (Sidebar pindah ke atas) */
+        /* Responsif untuk HP */
         @media (max-width: 768px) {
             .container {
                 flex-direction: column;
@@ -131,46 +131,40 @@
                 border-right: none;
                 border-bottom: 1px solid #e0e0e0;
             }
+            .main-content {
+                padding: 15px;
+            }
         }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>Portal Edukasi & Kuis Pancasila</h1>
+        <h1>Portal & Kuis Pancasila Interaktif</h1>
     </header>
 
     <div class="container">
         
         <div class="sidebar">
-            <div>
-                <div class="menu-title">Pilih Materi Pembelajaran</div>
-                <div class="menu-list">
-                    <button class="menu-item active" onclick="bukaKonten(event, 'home')">🏠 Halaman Utama</button>
-                    <button class="menu-item" onclick="bukaKonten(event, 'sejarah')">📜 Sejarah Pancasila</button>
-                    <button class="menu-item" onclick="bukaKonten(event, 'makna-lambang')">🦅 Makna Lambang Garuda</button>
-                    <button class="menu-item" onclick="bukaKonten(event, 'nilai-amalan')">💡 Nilai & Pengamalan</button>
-                </div>
-            </div>
-
-            <div class="quiz-container">
-                <div class="menu-title" style="text-align: center; margin-bottom: 10px; color: #c62828;">🎯 Uji Kemampuanmu</div>
-                <iframe src="https://script.google.com/macros/s/AKfycbwqO6ye4eh1izg3Z8NdUwNhUfMz6nMce09eOqyxLFGzaVOnuyOt2almpDAv60-qATgZXw/exec"></iframe>
+            <div class="menu-title">Menu Navigasi</div>
+            <div class="menu-list">
+                <button class="menu-item active" onclick="bukaKonten(event, 'kuis-pancasila')">🎯 Kuis Pancasila</button>
+                <button class="menu-item" onclick="bukaKonten(event, 'sejarah')">📜 Sejarah Pancasila</button>
+                <button class="menu-item" onclick="bukaKonten(event, 'makna-lambang')">🦅 Makna Lambang</button>
+                <button class="menu-item" onclick="bukaKonten(event, 'nilai-amalan')">💡 Nilai & Pengamalan</button>
             </div>
         </div>
 
         <div class="main-content">
             <div class="card">
                 
-                <div id="home" class="content-section active">
-                    <h2>Selamat Datang di Portal Pancasila!</h2>
-                    <p>Silakan klik menu materi di sidebar sebelah kiri untuk mempelajari nilai-nilai luhur bangsa. Sambil membaca materi, kamu juga bisa langsung menguji pemahamanmu melalui widget kuis interaktif yang tersedia tepat di bawah menu!</p>
-                    <p>Selamat belajar dan semoga mendapatkan skor 100! 🎯</p>
+                <div id="kuis-pancasila" class="content-section active">
+                    <iframe src="https://script.google.com/macros/s/AKfycbwqO6ye4eh1izg3Z8NdUwNhUfMz6nMce09eOqyxLFGzaVOnuyOt2almpDAv60-qATgZXw/exec"></iframe>
                 </div>
 
                 <div id="sejarah" class="content-section">
                     <h2>Sejarah Lahirnya Pancasila</h2>
-                    <p>Pancasila dirumuskan melalui proses musyawarah para pendiri bangsa yang tergabung dalam BPUPKI. Istilah Pancasila pertama kali diperkenalkan oleh Ir. Soekarno pada tanggal 1 Juni 1945 dalam pidatonya.</p>
+                    <p>Pancasila dirumuskan melalui proses musyawarah para pendiri bangsa yang tergabung dalam BPUPKI. Istilah Pancasila pertama kali diperkenalkan oleh Ir. Soekarno pada tanggal 1 Juni 1945 dalam pidatona.</p>
                     <p>Oleh karena itu, setiap tanggal 1 Juni kita memperingatinya sebagai Hari Lahir Pancasila.</p>
                 </div>
 
@@ -213,10 +207,10 @@
                 item.classList.remove('active');
             });
 
-            // 3. Tampilkan konten yang dipilih
+            // 3. Tampilkan konten yang dipilih di kolom kanan
             document.getElementById(namaKonten).classList.add('active');
 
-            // 4. Berikan status 'active' pada tombol yang diklik
+            // 4. Berikan status 'active' pada tombol sidebar yang klik
             event.currentTarget.classList.add('active');
         }
     </script>
