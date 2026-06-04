@@ -3,60 +3,133 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Website Belajar Pancasila</title>
+    <title>Dashboard Belajar Pancasila</title>
     <style>
-        /* Desain dasar website */
+        /* Desain Dasar & Layout */
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
-            background-color: #f4f4f9;
+            background-color: #f0f2f5;
         }
         header {
             background-color: #c62828;
             color: white;
             text-align: center;
-            padding: 1.5rem;
+            padding: 1rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
-        /* Mengatur layout utama dan sidebar bersebelahan */
+        
+        /* Container Utama (Sidebar di kiri, Konten di kanan) */
         .container {
             display: flex;
             flex: 1;
-            padding: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-            gap: 20px;
             width: 100%;
             box-sizing: border-box;
         }
-        .main-content {
-            flex: 2; /* Mengambil porsi 2 bagian */
+
+        /* SIDEBAR (SISI KIRI) */
+        .sidebar {
+            width: 320px;
             background-color: white;
             padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            box-shadow: 2px 0 5px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            border-right: 1px solid #e0e0e0;
         }
-        .sidebar {
-            flex: 1; /* Mengambil porsi 1 bagian */
-            background-color: white;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+
+        /* Menu Navigasi di Sidebar */
+        .menu-title {
+            font-size: 14px;
+            font-weight: bold;
+            color: #757575;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+            letter-spacing: 1px;
         }
-        /* Mengatur tampilan iframe agar pas di sidebar */
+        .menu-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .menu-item {
+            padding: 12px 15px;
+            background-color: #f8f9fa;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            cursor: pointer;
+            text-align: left;
+            font-size: 15px;
+            font-weight: 500;
+            color: #333;
+            transition: all 0.2s ease;
+        }
+        .menu-item:hover {
+            background-color: #feebee;
+            color: #c62828;
+            border-color: #italic #c62828;
+        }
+        .menu-item.active {
+            background-color: #c62828;
+            color: white;
+            border-color: #c62828;
+        }
+
+        /* Iframe Kuis di Sidebar */
+        .quiz-container {
+            border-top: 2px dashed #e0e0e0;
+            padding-top: 15px;
+        }
         iframe {
             width: 100%;
-            height: 550px; /* Tinggi kuis di dalam sidebar */
+            height: 480px;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
+            box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
         }
-        /* Membuat layout responsif saat dibuka di HP */
+
+        /* KONTEN UTAMA (SISI KANAN) */
+        .main-content {
+            flex: 1;
+            padding: 30px;
+            background-color: #f0f2f5;
+        }
+        .card {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            min-height: 400px;
+        }
+
+        /* Mengatur tampilan halaman konten (Sembunyikan yang tidak aktif) */
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsif untuk HP (Sidebar pindah ke atas) */
         @media (max-width: 768px) {
             .container {
                 flex-direction: column;
+            }
+            .sidebar {
+                width: auto;
+                border-right: none;
+                border-bottom: 1px solid #e0e0e0;
             }
         }
     </style>
@@ -64,23 +137,88 @@
 <body>
 
     <header>
-        <h1>Portal Pendidikan Pancasila</h1>
+        <h1>Portal Edukasi & Kuis Pancasila</h1>
     </header>
 
     <div class="container">
-        <div class="main-content">
-            <h2>Pentingnya Memahami Nilai Pancasila</h2>
-            <p>Ini adalah area utama website kamu. Kamu bisa meletakkan artikel, materi pembelajaran, gambar, atau video di bagian ini.</p>
-            <p>Pancasila sebagai dasar negara memiliki peran penting dalam kehidupan berbangsa dan bernegara. Mari kita uji pemahaman kita pada kuis yang ada di sebelah kanan!</p>
+        
+        <div class="sidebar">
+            <div>
+                <div class="menu-title">Pilih Materi Pembelajaran</div>
+                <div class="menu-list">
+                    <button class="menu-item active" onclick="bukaKonten(event, 'home')">🏠 Halaman Utama</button>
+                    <button class="menu-item" onclick="bukaKonten(event, 'sejarah')">📜 Sejarah Pancasila</button>
+                    <button class="menu-item" onclick="bukaKonten(event, 'makna-lambang')">🦅 Makna Lambang Garuda</button>
+                    <button class="menu-item" onclick="bukaKonten(event, 'nilai-amalan')">💡 Nilai & Pengamalan</button>
+                </div>
+            </div>
+
+            <div class="quiz-container">
+                <div class="menu-title" style="text-align: center; margin-bottom: 10px; color: #c62828;">🎯 Uji Kemampuanmu</div>
+                <iframe src="https://script.google.com/macros/s/AKfycbwqO6ye4eh1izg3Z8NdUwNhUfMz6nMce09eOqyxLFGzaVOnuyOt2almpDAv60-qATgZXw/exec"></iframe>
+            </div>
         </div>
 
-        <div class="sidebar">
-            <h3 style="text-align: center; color: #c62828;">Uji Pengetahuanmu!</h3>
-            
-            <iframe src="https://script.google.com/macros/s/AKfycbwqO6ye4eh1izg3Z8NdUwNhUfMz6nMce09eOqyxLFGzaVOnuyOt2almpDAv60-qATgZXw/exec"></iframe>
-            
+        <div class="main-content">
+            <div class="card">
+                
+                <div id="home" class="content-section active">
+                    <h2>Selamat Datang di Portal Pancasila!</h2>
+                    <p>Silakan klik menu materi di sidebar sebelah kiri untuk mempelajari nilai-nilai luhur bangsa. Sambil membaca materi, kamu juga bisa langsung menguji pemahamanmu melalui widget kuis interaktif yang tersedia tepat di bawah menu!</p>
+                    <p>Selamat belajar dan semoga mendapatkan skor 100! 🎯</p>
+                </div>
+
+                <div id="sejarah" class="content-section">
+                    <h2>Sejarah Lahirnya Pancasila</h2>
+                    <p>Pancasila dirumuskan melalui proses musyawarah para pendiri bangsa yang tergabung dalam BPUPKI. Istilah Pancasila pertama kali diperkenalkan oleh Ir. Soekarno pada tanggal 1 Juni 1945 dalam pidatonya.</p>
+                    <p>Oleh karena itu, setiap tanggal 1 Juni kita memperingatinya sebagai Hari Lahir Pancasila.</p>
+                </div>
+
+                <div id="makna-lambang" class="content-section">
+                    <h2>Makna Lambang Garuda Pancasila</h2>
+                    <p>Burung Garuda melambangkan kekuatan dan warna emasnya melambangkan kemegahan atau kejayaan.</p>
+                    <ul>
+                        <li><strong>Bintang Emas:</strong> Sila ke-1 (Ketuhanan Yang Maha Esa)</li>
+                        <li><strong>Rantai Baja:</strong> Sila ke-2 (Kemanusiaan yang Adil dan Beradab)</li>
+                        <li><strong>Pohon Beringin:</strong> Sila ke-3 (Persatuan Indonesia)</li>
+                        <li><strong>Kepala Banteng:</strong> Sila ke-4 (Kerakyatan yang Dipimpin oleh Hikmat Kebijaksanaan dalam Permusyawaratan/Perwakilan)</li>
+                        <li><strong>Padi dan Kapas:</strong> Sila ke-5 (Keadilan Sosial bagi Seluruh Rakyat Indonesia)</li>
+                    </ul>
+                </div>
+
+                <div id="nilai-amalan" class="content-section">
+                    <h2>Nilai dan Contoh Pengamalan Pancasila</h2>
+                    <p>Pancasila bukan hanya untuk dihafal, melainkan harus diamalkan dalam kehidupan sehari-hari:</p>
+                    <p><strong>Contoh Sila ke-1:</strong> Menghormati teman yang sedang beribadah dan tidak memaksakan suatu agama kepada orang lain.</p>
+                    <p><strong>Contoh Sila ke-2:</strong> Menolong korban bencana alam dan tidak semena-mena terhadap orang lain.</p>
+                    <p><strong>Contoh Sila ke-3:</strong> Mencintai produk dalam negeri dan menjaga kerukunan antar suku.</p>
+                </div>
+
+            </div>
         </div>
+
     </div>
 
+    <script>
+        function bukaKonten(event, namaKonten) {
+            // 1. Sembunyikan semua section konten di sebelah kanan
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // 2. Hilangkan status 'active' (warna merah) dari semua tombol menu
+            const menuItems = document.querySelectorAll('.menu-item');
+            menuItems.forEach(item => {
+                item.classList.remove('active');
+            });
+
+            // 3. Tampilkan konten yang dipilih
+            document.getElementById(namaKonten).classList.add('active');
+
+            // 4. Berikan status 'active' pada tombol yang diklik
+            event.currentTarget.classList.add('active');
+        }
+    </script>
 </body>
 </html>
