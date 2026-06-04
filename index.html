@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Belajar Pancasila</title>
+    <style>
+        /* Desain dasar website */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #f4f4f9;
+        }
+        header {
+            background-color: #c62828;
+            color: white;
+            text-align: center;
+            padding: 1.5rem;
+        }
+        /* Mengatur layout utama dan sidebar bersebelahan */
+        .container {
+            display: flex;
+            flex: 1;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            gap: 20px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .main-content {
+            flex: 2; /* Mengambil porsi 2 bagian */
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .sidebar {
+            flex: 1; /* Mengambil porsi 1 bagian */
+            background-color: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        /* Mengatur tampilan iframe agar pas di sidebar */
+        iframe {
+            width: 100%;
+            height: 550px; /* Tinggi kuis di dalam sidebar */
+            border: none;
+            border-radius: 5px;
+        }
+        /* Membuat layout responsif saat dibuka di HP */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Portal Pendidikan Pancasila</h1>
+    </header>
+
+    <div class="container">
+        <div class="main-content">
+            <h2>Pentingnya Memahami Nilai Pancasila</h2>
+            <p>Ini adalah area utama website kamu. Kamu bisa meletakkan artikel, materi pembelajaran, gambar, atau video di bagian ini.</p>
+            <p>Pancasila sebagai dasar negara memiliki peran penting dalam kehidupan berbangsa dan bernegara. Mari kita uji pemahaman kita pada kuis yang ada di sebelah kanan!</p>
+        </div>
+
+        <div class="sidebar">
+            <h3 style="text-align: center; color: #c62828;">Uji Pengetahuanmu!</h3>
+            
+            <iframe src="https://script.google.com/macros/s/AKfycbwqO6ye4eh1izg3Z8NdUwNhUfMz6nMce09eOqyxLFGzaVOnuyOt2almpDAv60-qATgZXw/exec"></iframe>
+            
+        </div>
+    </div>
+
+</body>
+</html>
